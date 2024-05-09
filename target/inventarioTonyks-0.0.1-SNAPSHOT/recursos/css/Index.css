@@ -1,0 +1,102 @@
+.btnIcono{
+	background: none;
+	box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+	width: 130px; 
+	height: 130px;
+	cursor: pointer;
+	border-radius: 10px;
+}
+
+.imgIcono{
+	background: none;
+	box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+	width: 140px; 
+	height: 140px;
+	cursor: pointer;
+	border-radius: 10px;
+	
+	
+}
+    .grid-container {
+      margin: 20px auto;
+      height: 100%; /* Toda la altura de la ventana */
+      width: 100%;
+      display: grid;
+      grid-template-areas:
+        'header header header'
+        'widget-1 widget-2 widget-3'
+        'footer footer footer';
+      grid-template-rows: repeat(3 1fr); /* Alturas de las filas */
+      grid-template-columns: reapeat(3, 1fr); /* Anchos de las columnas */
+      grid-gap: 20px;
+      max-width: 100%; /*Tamaño de la ventana*/
+    }
+	
+	.grid-container > div,
+	.grid-container .header,
+	.grid-container .footer {
+		padding: 20px;
+		border-radius: 4px;
+	
+	}
+	
+    .grid-container .header {
+        position: fixed;
+        top: 0;
+        background: #333;   
+	    grid-area: header;
+	    height: 28px;
+	    width: 100%;
+	    z-index: 2;
+	    flex-direction: column;
+    }
+    
+   	.grid-container .widget-1
+	   	{
+	   	 border-right: 1px solid #ccc;
+   		position: relative;
+   		top: 200px;
+	    text-align: center;
+	    display: flex;
+	    align-items: center;
+	    justify-content: center;
+	    grid-area: widget-1;	
+	}
+   	
+   	.grid-container .widget-2
+   	 	{
+   	 	border-right: 1px solid #ccc;
+   		position: relative;
+   		top: 200px;
+	    text-align: center;
+	    display: flex;
+	    align-items: center;
+	    justify-content: center;
+	    grid-area: widget-2;	
+	}
+   	
+   	.grid-container .widget-3
+	   	{
+   		position: relative;
+   		top: 200px;
+	    text-align: center;
+	    display: flex;
+	    align-items: center;
+	    justify-content: center;
+	    grid-area: widget-3;	
+	}
+     
+    .grid-container .footer {
+      bottom: 0;
+      position: fixed;
+      height: 5px;
+      width:100%; 
+      grid-area: footer;
+      background-color: grey;
+      color: white;
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    

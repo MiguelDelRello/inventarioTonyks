@@ -1,0 +1,32 @@
+      .tabla-container thead {
+            position: static;
+            top: 0; /* Fijar la cabecera en la parte superior */
+            background-color: #ccc; /* Color de fondo para la cabecera (opcional) */
+        }
+        
+    table {
+	    width: 100%;
+	    border-collapse: collapse;
+	    margin-top: 10px;
+		white-space: nowrap;
+	    
+	}
+
+	th, td {
+	    padding: 8px;
+	    text-align: center;
+	    width: fit-content;
+	    border-bottom: 1px solid #ccc;
+	}
+
+	thead {
+	   	 background-color: #ccc;
+	}
+
+	tr:hover {
+   		 background-color: #efffe9;
+	}
+
+	
+	
+	

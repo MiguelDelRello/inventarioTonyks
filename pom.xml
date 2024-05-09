@@ -10,6 +10,7 @@
         <artifactId>maven-compiler-plugin</artifactId>
         <version>3.8.1</version>
         <configuration>
+          <encoding>UTF-8</encoding> 
           <release>17</release>
         </configuration>
       </plugin>
@@ -19,4 +20,172 @@
       </plugin>
     </plugins>
   </build>
+<properties>
+    <spring.version>5.3.18</spring.version>
+</properties>
+
+<dependencies>
+
+
+<dependency>
+    <groupId>org.springframework</groupId>
+    <artifactId>spring-orm</artifactId>
+    <version>${spring.version}</version>
+</dependency>
+<dependency>
+<groupId>org.springframework</groupId>
+<artifactId>spring-aop</artifactId>
+<version>${spring.version}</version>
+</dependency>
+<dependency>
+<groupId>org.springframework</groupId>
+<artifactId>spring-beans</artifactId>
+<version>${spring.version}</version>
+</dependency>
+<dependency>
+<groupId>org.springframework</groupId>
+<artifactId>spring-context</artifactId>
+<version>${spring.version}</version>
+</dependency>
+<dependency>
+<groupId>org.springframework</groupId>
+<artifactId>spring-core</artifactId>
+<version>${spring.version}</version>
+</dependency>
+<dependency>
+<groupId>org.springframework</groupId>
+<artifactId>spring-expression</artifactId>
+<version>${spring.version}</version>
+</dependency>
+<!--
+<dependency>
+<groupId>org.springframework</groupId>
+<artifactId>spring-web</artifactId>
+<version>${spring.version}</version>
+</dependency>-->
+<dependency>
+<groupId>org.springframework</groupId>
+<artifactId>spring-webmvc</artifactId>
+<version>${spring.version}</version>
+</dependency>
+
+	
+
+    <!-- MySQL Connector -->
+    <dependency>
+        <groupId>com.mysql</groupId>
+        <artifactId>mysql-connector-j</artifactId>
+        <version>8.0.32</version>
+    </dependency>
+
+    <!-- Commons DBCP2 -->
+    <dependency>
+        <groupId>org.apache.commons</groupId>
+        <artifactId>commons-dbcp2</artifactId>
+        <version>2.9.0</version>
+        <exclusions>
+        <exclusion>
+            <groupId>org.apache.tomcat</groupId>
+            <artifactId>tomcat-juli</artifactId>
+        </exclusion>
+        <!-- Otros exclusiones si es necesario -->
+    </exclusions>
+        
+    </dependency>
+
+<dependency>
+    <groupId>org.hibernate</groupId>
+    <artifactId>hibernate-core</artifactId>
+    <version>5.6.1.Final</version>
+</dependency>
+    
+<dependency>
+    <groupId>org.hibernate</groupId>
+    <artifactId>hibernate-entitymanager</artifactId>
+    <version>5.6.1.Final</version>
+</dependency>    
+    
+<dependency>
+    <groupId>jakarta.persistence</groupId>
+    <artifactId>jakarta.persistence-api</artifactId>
+	<version>3.1.0</version>
+</dependency>
+
+<dependency>
+    <groupId>jakarta.transaction</groupId>
+    <artifactId>jakarta.transaction-api</artifactId>
+	<version>2.0.0</version>
+</dependency>
+
+
+<dependency>
+    <groupId>jakarta.servlet</groupId>
+    <artifactId>jakarta.servlet-api</artifactId>
+    <version>4.0.4</version>
+    <scope>provided</scope>
+</dependency>
+
+<dependency>
+    <groupId>jakarta.servlet.jsp.jstl</groupId>
+    <artifactId>jakarta.servlet.jsp.jstl-api</artifactId>
+    <version>1.2.7</version>
+    <scope>compile</scope> <!-- o "provided" según tus necesidades -->
+</dependency>
+
+
+<dependency>
+    <groupId>org.glassfish.web</groupId>
+    <artifactId>jakarta.servlet.jsp.jstl</artifactId>
+    <version>1.2.6</version>
+</dependency>
+
+<dependency>
+    <groupId>commons-fileupload</groupId>
+    <artifactId>commons-fileupload</artifactId>
+    <version>1.4</version> 
+</dependency>
+
+<dependency>
+    <groupId>commons-digester</groupId>
+    <artifactId>commons-digester</artifactId>
+    <version>2.1</version>
+</dependency>
+
+    <dependency>
+        <groupId>org.apache.tomcat</groupId>
+        <artifactId>tomcat-servlet-api</artifactId>
+        <version>9.0.48</version> <!-- Ajusta la versión según tus necesidades -->
+        <scope>provided</scope>
+    </dependency>
+
+
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-tomcat</artifactId>
+    <version>2.6.3</version>
+</dependency>
+
+<!-- Excluir dependencias de servlets de Tomcat -->
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-web</artifactId>
+    <version>2.6.3</version>
+    <exclusions>
+        <exclusion>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-tomcat</artifactId>
+        </exclusion>
+        <exclusion>
+            <groupId>jakarta.servlet</groupId>
+            <artifactId>jakarta.servlet-api</artifactId>
+        </exclusion>
+    </exclusions>
+</dependency>
+
+
+
+
+
+</dependencies>
+
 </project>

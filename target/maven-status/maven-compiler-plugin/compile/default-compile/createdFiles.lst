@@ -1,0 +1,8 @@
+mx\com\inventario\Controller\registroController.class
+mx\com\inventario\Service\registroService.class
+mx\com\inventario\Dao\impl\registroDaoImpl.class
+mx\com\inventario\Entity\Marca.class
+mx\com\inventario\Controller\inicioController.class
+mx\com\inventario\Entity\PRENDA.class
+mx\com\inventario\Dao\registroDao.class
+mx\com\inventario\Service\impl\registroServiceImpl.class
