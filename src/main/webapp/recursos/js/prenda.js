@@ -44,6 +44,7 @@ document.addEventListener("DOMContentLoaded", function() {
 			 var stock       = document.getElementById('stock');
 			 var modelo      = document.getElementById('modelo');
 			 var descripcion = document.getElementById('descripcion');
+             var labelImagen  = document.getElementById('lbImagen');
 			 	 
 	        idPrenda.value     = this.cells[0].textContent;
 			marca.value        = this.cells[1].textContent;
@@ -56,15 +57,11 @@ document.addEventListener("DOMContentLoaded", function() {
 			descripcion.value  = this.cells[9].textContent;			
 
 			if(this.cells[10].textContent =="" ){
-				alert("--")
 				labelImagen.value = "logo.png"
 			}else {
-				alert("----")
 				labelImagen.value = this.cells[10].textContent	
-			}
-
-					
-		    mostrarModal("ventanaFlotantePrenda");
+			}		
+		    mostrarModal("ventanaFlotantePrenda"); 
 		      });
      }
   });
@@ -129,10 +126,8 @@ document.addEventListener("DOMContentLoaded", function() {
 			descripcion.value  = this.cells[9].textContent;
 			
 			if(this.cells[10].textContent =="" ){
-				alert("--")
 				labelImagen.value = "logo.png"
 			}else {
-				alert("----")
 				labelImagen.value = this.cells[10].textContent	
 			}
 		    mostrarModal("ventanaFlotantePrenda");

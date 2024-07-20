@@ -61,7 +61,7 @@
         'content sidebar sidebar'
         'footer footer footer';
       grid-template-rows: repeat(auto 1fx); /* Alturas de las filas */
-      grid-template-columns: reapeat(3, 1fr); /* Anchos de las columnas */
+      grid-template-columns: repeat(3, 1fr); /* Anchos de las columnas */
       grid-gap: 20px;
       max-width: 100%; /*Tamaño de la ventana*/
     }
@@ -116,7 +116,6 @@
 
     .grid-container .sidebar {
         top: 80px; 
-    	left: 200px;
         position: relative; 
 		grid-area: sidebar;
 		height: 380px;

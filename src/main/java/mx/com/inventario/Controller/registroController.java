@@ -4,8 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -40,12 +40,11 @@ public class registroController {
 	List<marca> marcaList = new ArrayList<>(); 	
 	List<PRENDA> buscarList = new ArrayList<>();
 	
-	@PostMapping(value = "/eliminarPrenda")
+	@DeleteMapping(value = "/eliminarPrenda")
 	public String eliminarPrenda(HttpServletRequest request, Model modelo) {
 		
 		System.out.println("--------------------------Eliminar Prenda-------------------------");
 		
-
 	   
 	    modelo.addAttribute("mensaje", regService.eliminarPrenda(Integer.parseInt(request.getParameter("idPrenda"))));
 		return nuevaPrenda(modelo);

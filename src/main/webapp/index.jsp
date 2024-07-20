@@ -22,14 +22,14 @@
     </form>
 </div>
 <div class="widget-2">
-	<form action="nuevaPrenda"  method="get">
+	<form action="venta"  method="get">
 		<button class="btnIcono" type="submit"><img src="recursos/img/icono-pp.png" alt="Punto de Venta" class="imgIcono">
 		</button>
 		<h3>Punto de Venta</h3>	
     </form>
 </div>
 <div class="widget-3">
-	<form action="nuevaPrenda"  method="get">
+	<form action="venta"  method="get">
 		<button class="btnIcono" type="submit"><img src="recursos/img/icono-reporte.png" alt="Reportes" class="imgIcono">
 		</button>
 		<h3>Reportes</h3>	

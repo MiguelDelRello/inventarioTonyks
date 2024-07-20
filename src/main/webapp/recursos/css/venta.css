@@ -1,0 +1,133 @@
+	.containerImgVenta {
+	  height: 150px;
+      width: 150px;
+	  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+	}
+	
+	
+	.btn-pagar {
+      background-color: #4CAF50;
+      color: white;
+      padding: 8px 16px;
+      border: none; 
+      border-radius: 4px;
+      cursor: pointer;
+      width: 150px;
+    }
+	
+
+	.btn-cancelar {
+	    background-color: #ffffff; /* Fondo blanco */
+	    color: #ff0000; /* Letras rojas */
+	    border: 1px solid #ff0000; /* Contorno rojo */
+	    padding: 8px 16px; /* Ajuste de relleno */
+	    cursor: pointer; /* Cambia el cursor al pasar el ratón */
+	    border-radius: 4px; /* Bordes redondeados */
+	    width: 150px;
+	}
+
+
+    .grid-container {
+      height: 100%; /* Toda la altura de la ventana */
+      width: 100%;
+      display: grid;
+      grid-template-areas:
+        'headerVenta headerVenta headerVenta'
+        'widget widgetScanner widgetScanner'
+        'widget sidebarVenta sidebarVenta'
+        'widget widgetTotal widgetTotal'
+        'footerVenta footerVenta footerVenta';
+      grid-template-rows: repeat(5, 1fr) ; /* Alturas de las filas */
+      grid-template-columns: repeat(3, 1fr); /* Anchos de las columnas */
+          }
+	
+	.grid-container > div,
+	.grid-container .headerVenta,
+	.grid-container .sidebarVenta,
+	.grid-container .footerVenta {
+		padding: auto;
+		border-radius: 10px;
+
+	}
+	
+    .grid-container .headerVenta {
+        position: fixed;
+        top: 0;
+        background: #333;   
+	    grid-area: headerVenta;
+	    height: 50px;
+	    width: 100%;
+		z-index: 2;
+    }
+
+    .grid-container .widgetScanner{
+    	grid-area: widgetScanner;
+    	position: fixed;
+    	width: 100%;
+    	height: 30px;
+    	top: 60px;
+    	left: 300px;
+        display: flex;
+        align-items: center;
+    	
+    }
+    
+   	.grid-container .widget
+	   	{
+	   	 grid-area: widget;
+	   	 position: fixed;
+	   	 top: 25px;
+	   	 width: 200px;
+	   	 height: 100%;
+         display: flex;
+         flex-direction: column;
+         align-items: center;
+         justify-content: center;
+ 	}
+   	
+
+    .grid-container .sidebarVenta {
+    	position: absolute;
+    	top: 100px;
+    	left:300px;
+        width: 75%;
+	   	height: 100%;
+		grid-area: sidebarVenta;
+		
+	 }
+
+
+    .grid-container .widgetTotal{
+    	grid-area: widgetTotal;
+    	background-color: #efffe9;
+    	position: fixed;
+    	width: 100%;
+    	height: 30px;
+    	bottom: 50px;
+    	left: 225px;
+    	padding: 5px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    	
+    }
+
+
+     
+    .grid-container .footerVenta {
+      bottom: 0;
+      position: fixed;
+      height: 50px;
+      width: 100%; 
+      grid-area: footerVenta;
+      background-color: grey;
+      color: white;
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    

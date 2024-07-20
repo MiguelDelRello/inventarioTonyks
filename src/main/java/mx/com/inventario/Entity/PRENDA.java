@@ -5,12 +5,27 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Lob;
 import javax.persistence.Table;
 
 @Entity (name = "PRENDA")
 @Table  (name = "prenda")
 public class PRENDA {
+
+	public PRENDA(Integer idPrenda, String marca, String talla, double costo, double venta, String modelo, String tipo,
+			Integer stock, String descripcion, String imagen) {
+		super();
+		this.idPrenda = idPrenda;
+		this.marca = marca;
+		this.talla = talla;
+		this.costo = costo;
+		this.venta = venta;
+		this.modelo = modelo;
+		this.tipo = tipo;
+		this.stock = stock;
+		this.descripcion = descripcion;
+		this.imagen = imagen;
+	}
+
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,6 +50,9 @@ public class PRENDA {
     @Column(name = "imagen")
     private String imagen;
 	
+	public PRENDA() {
+		// TODO Auto-generated constructor stub
+	}
 	public Integer getIdPrenda() {
 		return idPrenda;
 	}

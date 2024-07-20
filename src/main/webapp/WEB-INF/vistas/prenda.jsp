@@ -7,7 +7,7 @@
 <head>
 <meta charset="ISO-8859-1">
 <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
-<title>Inventario TonykZ</title>
+<title>Inventario - TonykZ</title>
 <link rel="stylesheet" href="<%=request.getContextPath()%>/recursos/css/CSSGrid.css" />
 <link rel="stylesheet" href="<%=request.getContextPath()%>/recursos/css/tab.css" />
 <script src="<%=request.getContextPath()%>/recursos/js/modalPrenda.js"></script>
@@ -21,7 +21,7 @@
 </header>
 <div class="widget-1">
 	<div class="div-busqueda">
-		<form action="buscarPrenda" method="post">
+
 		    <label for="idBusqueda">ID:</label>
 		    <input type="text" id="idBusqueda" name="idBusqueda"   placeholder="ID" >
 		    <label for="modeloBusqueda">Modelo : </label>
@@ -44,7 +44,6 @@
 		      <option value="2XL">2XL</option>
 		    </select>
 			<button type="submit" onclick="buscarPrenda" >Buscar</button>							
-		</form>
 	</div>
 </div>
 <div class="widget-2" >
