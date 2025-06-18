@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', function () {
     
     var valorLabel = mensaje.innerText || mensaje.textContent;
 
-if (valorLabel === "Registro guardado correctamente"  || valorLabel ===  "Registro eliminado correctamente" ){
+if (valorLabel === REGISTRO_GUARDADO  || valorLabel ===  "Registro eliminado correctamente" ){
 	divOk.style.display = 'block';
 	
 
@@ -49,7 +49,7 @@ if (valorLabel === "Error al registrar prenda" || valorLabel === "Error al regis
 			
 	  } 
      function ocultarModal(seccion) {
-        // Obtén el elemento modal por su ID
+        // Obt&eacute;n el elemento modal por su ID
         var modal = document.getElementById(seccion);
 
         // Oculta el modal cambiando el estilo de display a 'none'
@@ -58,7 +58,7 @@ if (valorLabel === "Error al registrar prenda" || valorLabel === "Error al regis
     }
 
     function mostrarModal(sec) {
-        // Obtén el elemento modal por su ID
+        // Obt&eacute;n el elemento modal por su ID
         var modal = document.getElementById(sec);
 
         // Muestra el modal cambiando el estilo de display a 'flex'
@@ -68,9 +68,13 @@ if (valorLabel === "Error al registrar prenda" || valorLabel === "Error al regis
     
     function eliminarPrenda(){
 	
-		document.getElementById('formPrenda').action = '/inventarioTonyks/eliminarPrenda';
-        document.getElementById('formPrenda').submit();
-        
+	
+	console.log("Elimina prenda -->  ");
+	
+    	var form = document.getElementById('formPrenda');
+		form.action = '/inventarioTonyks/eliminarPrenda';
+		form.submit();
+       
 	}
     
     function guardarPrenda(){
@@ -79,12 +83,12 @@ if (valorLabel === "Error al registrar prenda" || valorLabel === "Error al regis
         document.getElementById('formPrenda').submit();
 	}
     function simularAccion() {
-        // Aquí puedes poner la lógica que necesites (por ejemplo, enviar datos al servidor)
+        // Aqu&iacute; puedes poner la l&oacute;gica que necesites (por ejemplo, enviar datos al servidor)
 
         // Simulando un error
         mostrarMensaje('mensajeError');
         
-        // Simulando éxito
+        // Simulando &eacute;xito
         // mostrarMensaje('mensajeExito');
     }
 
@@ -94,7 +98,7 @@ if (valorLabel === "Error al registrar prenda" || valorLabel === "Error al regis
         document.getElementById('mensajeError').style.display = 'none';
         document.getElementById('mensajeExito').style.display = 'none';
 
-        // Mostrar el mensaje específico
+        // Mostrar el mensaje espec&iacute;fico
         document.getElementById(idMensaje).style.display = 'block';
     }
     

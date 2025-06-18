@@ -4,7 +4,7 @@ package mx.com.inventario.Service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import jakarta.transaction.TransactionScoped;
+import javax.transaction.TransactionScoped;
 import mx.com.inventario.Dao.ventaDAO;
 import mx.com.inventario.Entity.PRENDA;
 import mx.com.inventario.Service.ventaService;

@@ -1,13 +1,20 @@
 package mx.com.inventario.Controller;
 
+import java.io.IOException;
+
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import jakarta.transaction.Transactional;
+import org.springframework.web.bind.annotation.PostMapping;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import javax.transaction.Transactional;
 import mx.com.inventario.Entity.PRENDA;
+import mx.com.inventario.Service.registroService;
 import mx.com.inventario.Service.ventaService;
 
 @Transactional
@@ -17,16 +24,30 @@ public class ventaController {
 	@Autowired 
 	private ventaService vtaService;
 	
+	@Autowired
+	private registroService regService;
 	
-	@GetMapping(value = "/scannPrenda")
-	public String scannPrenda(HttpServletRequest request, Model modelo) {
+	@PostMapping(value = "/scannPrenda", produces = MediaType.APPLICATION_JSON_VALUE)
+	public void scannPrenda(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		
-		System.out.println("id---- " + request.getParameter("idScann"));		
+		System.out.println("id---- " + request.getParameter("modeloScann"));		
 	    String modeloBusqueda = request.getParameter("modeloScann");
 	    PRENDA scann = vtaService.scannService(modeloBusqueda);
-	    modelo.addAttribute("prenda", scann);
-		
-		return "venta";
+	    scann.setMarca(regService.obtenerMarca(scann.getMarca()));
+	    
+	    
+	
+	      ObjectMapper objectMapper = new ObjectMapper();
+	        String jsonString = objectMapper.writeValueAsString(scann);
+
+	    
+	    System.out.println("PRENDA ---- " + scann.toString()    );
+	        
+	    response.setContentType("application/json");
+	    response.setCharacterEncoding("UTF-8");
+	    
+	    response.getWriter().write(jsonString);
+	    
 	}
 
 }

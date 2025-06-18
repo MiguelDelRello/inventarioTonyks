@@ -7,6 +7,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+
+
+@JsonPropertyOrder
 @Entity (name = "PRENDA")
 @Table  (name = "prenda")
 public class PRENDA {
@@ -118,7 +122,7 @@ public class PRENDA {
 	@Override
 	public String toString() {
 		return "PRENDA [idPrenda=" + idPrenda + ", marca=" + marca + ", talla=" + talla + ", costo=" + costo
-				+ ", venta=" + venta + ", modelo=" + modelo + ", tipo=" + tipo + ", stock=" + stock + ", descripcion=" + descripcion + "]";
+				+ ", venta=" + venta + ", modelo=" + modelo + ", tipo=" + tipo + ", stock=" + stock + ", descripcion=" + descripcion +  ", imagen=" + imagen +  "]";
 	}
 	
 	

@@ -70,7 +70,7 @@ document.addEventListener('DOMContentLoaded', function () {
     var tabla = document.getElementById('tablaPrenda');
     var filas = tabla.getElementsByTagName('tr');
 
-    for (var i = 0; i < filas.length; i++) {
+    for (var i = 1; i < filas.length; i++) {
         filas[i].addEventListener('click', function () {
 
 			
@@ -85,7 +85,7 @@ document.addEventListener('DOMContentLoaded', function () {
 			modelo.textContent = this.cells[3].textContent;
 			// Creamos un elemento de imagen y asignamos la URL como fuente
 			imagen.src = "/Imagenes/"   + this.cells[10].textContent;
-            console.log("---------------" + imagen.src);
+         //  console.log("---------------" + imagen.src);
 
 
 

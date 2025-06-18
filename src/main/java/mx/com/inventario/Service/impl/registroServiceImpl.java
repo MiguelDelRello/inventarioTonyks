@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import jakarta.transaction.TransactionScoped;
+import javax.transaction.TransactionScoped;
 import mx.com.inventario.Dao.registroDao;
 import mx.com.inventario.Entity.marca;
 import mx.com.inventario.Entity.PRENDA;
@@ -35,5 +35,9 @@ public class registroServiceImpl implements registroService {
 
 	@Override
 	public List<PRENDA> buscarPrenda(PRENDA prenda) { return regDao.buscarPrenda(prenda);	}
+
+	@Override
+	public String obtenerMarca(String id) { return regDao.obtenerMarca(id);
+	}
 
 }

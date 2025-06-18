@@ -1,107 +1,196 @@
- var id          = [];      
- var modelo      = [];
- var marca       = [];
- var tipo        = [];
- var talla       = [];
- var precio      = [];
- var stock       = [];
- var descripcion = [];
- var imagen      = [];
+document.addEventListener('interactive', function () {
+    var tabla = document.getElementById('tablaVenta');
+    var filas = tabla.getElementsByTagName('tr');
+
+    for (var i = 1; i < filas.length; i++) {
+        filas[i].addEventListener('click', function () {
+
+			
+			 var existencia   = document.getElementById('pExistencia');
+			 var descripcion   = document.getElementById('pDesc');			 
+			 var imagen   = document.getElementById('imgPrenda');
+			 
+            
+            
+   
+        	existencia.textContent  = this.cells[7].textContent;
+			descripcion.textContent = this.cells[8].textContent;
+			// Creamos un elemento de imagen y asignamos la URL como fuente
+			imagen.src = "/Imagenes/"   + this.cells[9].textContent;
+           console.log("---------------" + imagen.src);
+
+
+
+            
+        });
+    }
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+	    document.getElementById('scannPrendaForm').addEventListener('submit', function(event) {
+	        event.preventDefault(); // Evita que el formulario se env&iacute;e de forma tradicional
+
+	        const formData = new FormData(this);
+
+	        fetch('scannPrenda', {
+	            method: 'POST',
+	            body: formData,
+	            headers: {
+                         'Accept': 'application/json' // Esto asegura que el servidor sepa que esperas JSON
+                  }
+	            
+	        })
+        .then(response => {
+            if (response.ok) {
+                return response.json();
+            } else {
+                throw new Error('Error en la solicitud');
+            }
+        })
+	    .then(data => {
+	            console.log('Success:', data);
+
+       if ( data.idPrenda !== null){
+		     
+          if ( data.stock !=0){
+		     
+		     
+            document.getElementById('pExistencia').innerText = 'Existencia : '  + data.stock;
+            document.getElementById('pDesc').innerText =       'Descripcion : ' + data.descripcion;
+            document.getElementById('imgPrenda').src =         '/Imagenes/'     + data.imagen;
+            
+            var  subtotal = document.getElementById('SubTotal');
+            var     total = document.getElementById('Total');
+
+            var contenido = subtotal.innerText;
+            
+            subtotal.innerText = parseInt(contenido) + data.venta;
+               total.innerText = parseInt(contenido) + data.venta;
+
+            
+			var tabla = document.getElementById("tablaVenta").getElementsByTagName('tbody')[0];
  
-  document.addEventListener('DOMContentLoaded', function() {	  
-  document.getElementById('modeloScann').addEventListener('keydown', function(event) {
+            var nuevafila = tabla.insertRow();
+            
+            
+            
+            var celCheck   = nuevafila.insertCell(0);
+            var celId      = nuevafila.insertCell(1);
+            var celModelo  = nuevafila.insertCell(2);
+            var celMarca   = nuevafila.insertCell(3);
+            var celTipo    = nuevafila.insertCell(4); 
+            var celTalla   = nuevafila.insertCell(5);
+            var celVenta   = nuevafila.insertCell(6);
+            var celStock   = nuevafila.insertCell(7); 
+            var celDesc    = nuevafila.insertCell(8);
+            var celImagen  = nuevafila.insertCell(9);
+             
+			celId.innerHTML      = data.idPrenda;
+			celModelo.innerHTML  = data.modelo;
+			celMarca.innerHTML   = data.marca;
+			celTipo.innerHTML    = data.tipo;
+			celTalla.innerHTML   = data.talla;
+			celVenta.innerHTML   = data.venta;
+			celStock.innerHTML   = data.stock;
+			celDesc.innerHTML    = data.descripcion;
+			celImagen.innerHTML  = data.imagen;			
+			
+			celStock.hidden  = true;
+			celDesc.hidden   = true;
+			celImagen.hidden = true;			
+			
+			
+			 var checkbox = document.createElement('input');
+			 checkbox.type = 'checkbox';
+			 celCheck.appendChild(checkbox);
+			 
+             document.getElementById('modeloScann').value = '';
+			 
+
+            }
+         }
+
+	        })
+	        
+	        .catch(error => {
+	            console.error('Error:', error);
+	            // Aqu&iacute; puedes manejar los errores
+	        });
+	    });
+	    
+});
+
+  
+  function cancelar(){
+  
+  console.log("Cancelar")
+    var tabla = document.getElementById('tablaVenta');
+      var tbody = tabla.getElementsByTagName('tbody')[0];
+      var filas = tabla.getElementsByTagName('tr');	  
+	  let EliminarList = [];
+
+
+	  for(var x = 1; x < filas.length; x++) {
+		  var fila = tabla.rows[x];
+	      EliminarList.push(fila);
+
+	  }
+
+	  EliminarList.forEach(lista =>{ 
+	     //console.log(lista);
+	     tbody.removeChild(lista);
+	     }) ;
+
+
+            document.getElementById('pExistencia').innerText = 'Existencia : ';
+            document.getElementById('pDesc').innerText =       'Descripcion : ' ;
+            document.getElementById('imgPrenda').src =         'recursos/img/logo.png';
+
+
+}  
+
+
+  
+  function eliminarPrenda(){
 	  
+	  var tabla = document.getElementById('tablaVenta');
+      var tbody = tabla.getElementsByTagName('tbody')[0];
+      var filas = tabla.getElementsByTagName('tr');	  
+	  
+	  let EliminarList = [];
+	  
+	  for(var x = 1; x < filas.length; x++) {
+	 	var celda = tabla.rows[x].cells[0];	
+        var check = celda.querySelector('input[type="checkbox"]');
 
-            // Verificar si la tecla presionada es "Enter"
-            if (event.key === 'Enter') {
-
-                // Prevenir la acción predeterminada del formulario si es necesario
-                event.preventDefault();
-     	           // Ejecutar la acción deseada
-			    recolectarDatos();
-                
-                document.getElementById('scannPrendaForm').submit();
-             
-                cargarDatos();                  
-                 
-            }         
-
+		if(check.checked){
+			
+			
+     		var fila = tabla.rows[x];
+ 		
+   
+            var  subtotal = document.getElementById('SubTotal');
+            var  total = document.getElementById('Total');            
+            var contenido = subtotal.innerText;
+            var costo = tabla.rows[x].cells[6].innerText;
             
-            });
-             
- 
-      });  
-    
-        
-       function recolectarDatos() {
-        
-        
-            var tabla = document.getElementById('tablaPrenda');
-            var filas = tabla.getElementsByTagName('tr');
-
-            for (var i = 0; i < filas.length; i++) {
-				
-				
-                var celdas = filas[i].getElementsByTagName('td');
-
-
-				if(celdas.length>0){
-						
-        	            id.push(celdas[1].innerText);
-           	            modelo.push(celdas[2].innerText);
-        	            marca.push(celdas[3].innerText);
-        	            tipo.push(celdas[4].innerText);           	            
-        	            talla.push(celdas[5].innerText);
-        	            precio.push(celdas[6].innerText);
-        	            stock.push(celdas[7].innerText);
-           	            descripcion.push(celdas[8].innerText);
-        	            imagen.push(celdas[9].innerText);
-                 }     
-    	          
-             }
-             
-         }   
-                 
-       
-function cargarDatos(){
-	
-	        var tabla = document.getElementById('tablaPrenda');
+            EliminarList.push(fila);
             
-            
-            console.log("____________ " + id.length);
-            for( var j = 0; j < id.length; j++){
+            subtotal.innerText = parseInt(contenido) - parseInt(costo);
+            total.innerText = parseInt(contenido) - parseInt(costo);     		
 
-		            var nuevaFila = tabla.insertRow();
+//     		tbody.removeChild(fila);
 
-            
-		        	var nuevaCelda1 = nuevaFila.insertCell(0);
-		            var nuevaCelda2 = nuevaFila.insertCell(1);
-		            var nuevaCelda3 = nuevaFila.insertCell(2);
-                 	var nuevaCelda4 = nuevaFila.insertCell(3);
-		            var nuevaCelda5 = nuevaFila.insertCell(4);
-		            var nuevaCelda6 = nuevaFila.insertCell(5);
-		            var nuevaCelda7 = nuevaFila.insertCell(6);
-                 	var nuevaCelda8 = nuevaFila.insertCell(7);
-		            var nuevaCelda9 = nuevaFila.insertCell(8);
-		            var nuevaCelda10 = nuevaFila.insertCell(9);		
-
-
-                    var checkbox = document.createElement('input');
-                    checkbox.type = 'checkbox';
-                    
-                    nuevaCelda1.appendChild(checkbox);
-                    nuevaCelda2.innerText = id[j];
-		            nuevaCelda3.innerText = modelo[j];
-		            nuevaCelda4.innerText = marca[j];
-		            nuevaCelda5.innerText = tipo[j];
-		            nuevaCelda6.innerText = talla[j];
-		            nuevaCelda7.innerText = precio[j];
-		            nuevaCelda8.innerText = stock[j];
-		            nuevaCelda9.innerText = descripcion[j];
-		            nuevaCelda10.innerText = imagen[j];		            
-		            
-		            
-	       }
-	     
-}       
-       
+			
+		}
+	  }  
+	  
+	  EliminarList.forEach(lista =>{ 
+	     //console.log(lista);
+	     tbody.removeChild(lista);
+	     }) ;
+	  
+  }
+  
+  
+  

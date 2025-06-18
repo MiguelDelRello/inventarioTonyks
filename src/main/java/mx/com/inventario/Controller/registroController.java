@@ -1,16 +1,18 @@
+
 package mx.com.inventario.Controller;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+//import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import jakarta.transaction.Transactional;
+import javax.transaction.Transactional;
 import mx.com.inventario.Entity.marca;
 import mx.com.inventario.Entity.PRENDA;
 import mx.com.inventario.Service.registroService;
@@ -20,14 +22,15 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
+//import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 
 
 
 @Transactional
 @Controller
-//@RequestMapping("/inventarioTonyks")
 public class registroController {
 
 	public registroController() {}
@@ -40,8 +43,9 @@ public class registroController {
 	List<marca> marcaList = new ArrayList<>(); 	
 	List<PRENDA> buscarList = new ArrayList<>();
 	
-	@DeleteMapping(value = "/eliminarPrenda")
-	public String eliminarPrenda(HttpServletRequest request, Model modelo) {
+	@PostMapping(value = "/eliminarPrenda", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+	public String eliminarPrenda(HttpServletRequest request, Model modelo,
+			@RequestParam("imagen") MultipartFile imagenArchivo) throws IOException {		
 		
 		System.out.println("--------------------------Eliminar Prenda-------------------------");
 		
@@ -58,7 +62,10 @@ public class registroController {
 		PRENDA prendaBusqueda = new PRENDA();
         
 		
-		if(!request.getParameter("idBusqueda").isEmpty()) { prendaBusqueda.setIdPrenda(Integer.parseInt(request.getParameter("idBusqueda")));}
+		if(!request.getParameter("idBusqueda").isEmpty()) { 
+			prendaBusqueda.setIdPrenda(Integer.parseInt(request.getParameter("idBusqueda")));
+		}
+		
 		
 		
 		prendaBusqueda.setModelo(request.getParameter("modeloBusqueda"));		
@@ -84,9 +91,12 @@ public class registroController {
 		
 		   final String UPLOAD_DIRECTORY = "C:\\Imagenes" ;
 		
-		    //Se validad si el id es vacio guarda nuevo registro, si no actualiza. 
-			if ( request.getParameter("idPrenda").equals("")  )	    System.out.println("Empty o Blank");
-			else prenda.setIdPrenda(Integer.parseInt(request.getParameter("idPrenda")));
+		   
+		   Optional.ofNullable(request.getParameter("idPrenda"))
+		   						.filter(id -> !id.isEmpty())
+		   						.map(Integer::parseInt)
+		   						.ifPresent(prenda::setIdPrenda);
+		   		   
 
 			// Valida si no cargo archivo de imagen al dar de alta. 
 			if (!imagenArchivo.getOriginalFilename().equals("")) {
@@ -102,13 +112,12 @@ public class registroController {
 			}
 			
 			
-		
-		
-    	for(marca marca : marcaList) {
-    		if(request.getParameter("marca").equals(marca.getNombre())) {
-    			prenda.setMarca(marca.getIdMarca());
-    		 }
-    	}	
+			
+			
+		marcaList.stream()
+		      .filter(marca -> request.getParameter("marca").equals(marca.getNombre())  )
+		      .findFirst()
+		      .ifPresent(marca -> prenda.setMarca(marca.getIdMarca()) );
 		
     	prenda.setCosto(Double.parseDouble(request.getParameter("costo")));
     	prenda.setDescripcion(request.getParameter("descripcion"));
@@ -133,7 +142,7 @@ public class registroController {
 			
 		System.out.println("--------------------------Nueva prenda-------------------------------");
 		
-		if(buscarList.size() == 0) {
+		if(buscarList.isEmpty() ) {
 			 //obtine las prendas activas		
 			 prendaList = regService.obtenerPrendas(true); 
 			 modelo.addAttribute("prendaList", prendaList);
@@ -176,29 +185,26 @@ public class registroController {
 	
 	
 public static List<PRENDA> sustituirMarca(List<PRENDA> prenda, List<marca> marcaList) {
-	 PRENDA prendaActual;
+	 	 
 	 
-	 //Sustituye marca
-
-    for (int x = 0;x<prenda.size();x++) {
-    	for(marca marca : marcaList) {
-    		if(prenda.get(x).getMarca().equals(marca.getIdMarca())) {
-    			
-    			prendaActual = prenda.get(x);
-    			prendaActual.setMarca(marca.getNombre());
-    		    prenda.set(x,prendaActual);
-    		    //logger.info(prendaActual);
-    					        			}
-    		}
-    		        	
-    	}
-	
+	 prenda.forEach(p ->  {
+		 marcaList.forEach(  m -> {
+	    		if(p.getMarca().equals(m.getIdMarca())) {   			
+	    			p.setMarca(m.getNombre());
+	    		}
+		 });
+	 });
+	 
+	 
 	return prenda; 
 }	
 	
-	
-	
-
+/*	
+@PostConstruct
+public void init() {
+    System.out.println("RegistroController bean creado");
+}	
+*/
 
 
 }

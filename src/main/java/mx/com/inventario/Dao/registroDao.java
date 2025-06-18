@@ -12,6 +12,7 @@ public interface registroDao {
 	public List<PRENDA> obtenerPrendas(boolean exist);
 	public String agregarMarcaDao(marca marca);
 	public String eliminarPrendaDao(Integer idPrenda);
+	String obtenerMarca(String id);
 	
 	
 }

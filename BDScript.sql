@@ -8,6 +8,7 @@ nombre VARCHAR(30),
 descripcion VARCHAR(100)
 );
 
+
 create table prenda (
 idPrenda integer PRIMARY KEY AUTO_INCREMENT,
 idMarca integer, 
@@ -18,6 +19,7 @@ modelo VARCHAR(30),
 tipo VARCHAR(30),
 stock integer,
 descripcion VARCHAR (100),
+imagen VARCHAR(100),
 FOREIGN KEY (idMarca) REFERENCES marca(idMarca) 
 );
 
@@ -30,5 +32,8 @@ datos_imagen BLOB,
 FOREIGN KEY (idPrenda) REFERENCES prenda(idPrenda) 
 );
 
+CREATE TABLE ventas (
+id_venta INTEGER PRIMARY KEY  AUTO_INCREMENT,
 
+);
 

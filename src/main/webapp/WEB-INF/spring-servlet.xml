@@ -4,57 +4,60 @@
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:mvc="http://www.springframework.org/schema/mvc"
        xmlns:tx="http://www.springframework.org/schema/tx"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
-                           http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
-                           http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
-                           http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+		xsi:schemaLocation="
+		    http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		    http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd
+		    http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
+		    http://www.springframework.org/schema/tx https://www.springframework.org/schema/tx/spring-tx.xsd">
+    <!-- Escaneo de componentes -->
+    
+    <context:component-scan base-package="mx.com.inventario" />
 
-<context:component-scan base-package="mx.com.inventario" /> 
+    <!-- Habilita anotaciones como @Controller, @RequestMapping, etc. -->
+    <mvc:annotation-driven />
 
+    <!-- ViewResolver para JSP -->
+    <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/vistas/" />
+        <property name="suffix" value=".jsp" />
+    </bean>
 
+    <!-- Soporte para carga de archivos -->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="maxUploadSize" value="100000000" />
+    </bean>
 
-<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">  
-        <property name="prefix" value="/WEB-INF/vistas/"></property>  
-        <property name="suffix" value=".jsp"></property>          
-</bean>  
+    <!-- Fuente de datos -->
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="com.mysql.cj.jdbc.Driver" />
+        <property name="url" value="jdbc:mysql://localhost:3306/inventario" />
+        <property name="username" value="root" />
+        <property name="password" value="R3cl6t4m13nt0@" />
+    </bean>
 
-<!-- Configuración del componente HandlerMapping para los controladores -->
+    <!-- Configuración de Hibernate -->
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+        <property name="dataSource" ref="dataSource" />
+        <property name="packagesToScan" value="mx.com.inventario.Entity" />
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.dialect">org.hibernate.dialect.MySQL8Dialect</prop>
+                <prop key="hibernate.show_sql">true</prop>
+            </props>
+        </property>
+    </bean>
+
+    <!-- Gestor de transacciones -->
+    <bean id="transactionManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+
+<bean class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping"/>
 <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping"/>
 
-<!-- Configuración del componente HandlerAdapter para los controladores -->
-<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter"/>
-  
-  
-
-<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-    <property name="driverClassName" value="com.mysql.cj.jdbc.Driver" />
-    <property name="url" value="jdbc:mysql://localhost:3306/inventario" />
-    <property name="username" value="root" />
-    <property name="password" value="R3cl6t4m13nt0@" />
-</bean>
 
 
-<bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
-     <property name="dataSource" ref="dataSource" />
-     <property name="packagesToScan" value="mx.com.inventario.Entity" />
-     <property name="hibernateProperties">
-         <props>
-             <prop key="hibernate.dialect">org.hibernate.dialect.MySQL8Dialect</prop>
-             <prop key="hibernate.show_sql">true</prop>
-         </props>
-     </property>
- </bean>
- 
+    <!-- Habilita soporte para @Transactional -->
+    <tx:annotation-driven transaction-manager="transactionManager" />
 
-<bean id="transactionManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager">
-    <property name="sessionFactory" ref="sessionFactory"/>
-</bean>
-
-
-<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-     <property name="maxUploadSize" value="100000000"/>  
-
-</bean>
-
-  <tx:annotation-driven transaction-manager="transactionManager" />
-</beans>  
+</beans>

@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
+<meta charset="UTF-8">
 <title>Inventarios Tonyk´Z</title>
 <link rel="stylesheet" href="<%=request.getContextPath()%>/recursos/css/Index.css" />
 
@@ -12,7 +12,7 @@
 
 <div class="grid-container">
 	<header class="header">
-		    <img src="recursos/img/logo.png" alt="Icono" style="width: 45px; height: 45px;">
+		  <jsp:include page="header.jsp" />
 	</header>
 <div class="widget-1">
 	<form action="nuevaPrenda"  method="get">

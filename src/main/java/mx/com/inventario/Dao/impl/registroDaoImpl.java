@@ -2,6 +2,9 @@ package mx.com.inventario.Dao.impl;
 
 
 import java.util.ArrayList;
+
+
+
 import java.util.List;
 
 import org.hibernate.Session;
@@ -11,18 +14,26 @@ import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import jakarta.transaction.TransactionScoped;
+import javax.transaction.TransactionScoped;
 import mx.com.inventario.Dao.registroDao;
 import mx.com.inventario.Entity.marca;
 import mx.com.inventario.Entity.PRENDA;
+
+import org.springframework.beans.factory.annotation.Value;
+
+
 
 @Repository
 @TransactionScoped
 public class registroDaoImpl implements registroDao{
 
+	@Value("${app.ErrorMarca}")
+	private String ERROR_MARCA;
+	@Value("${app.RegistroGuardado}")
+	private String REGISTRO_GUARDADO;
+	
 	  @Autowired
-	  private SessionFactory sessionFactory;
-
+	  private SessionFactory sessionFactory;	  
 
 		@Override
 		public String agregarMarcaDao(marca marca) {
@@ -34,9 +45,9 @@ public class registroDaoImpl implements registroDao{
 			        transaction = session.beginTransaction();
 			        session.saveOrUpdate(marca);
 			        transaction.commit();
-			        return "Registro guardado correctamente";
+			        return REGISTRO_GUARDADO;
 			    } catch (Exception e) {
-			        return "Error al registrar marca";
+			        return ERROR_MARCA;
 			    } finally {
 			        session.close();
 			    }			
@@ -56,9 +67,8 @@ public class registroDaoImpl implements registroDao{
 			        transaction = session.beginTransaction();
 			        session.saveOrUpdate(prenda);
 			        transaction.commit();
-			        return "Registro guardado correctamente";
+			        return REGISTRO_GUARDADO;
 			    } catch (Exception e) {
-			    	System.out.println("Error al agregar prenda" + e);
 			        return "Error al registrar prenda";
 			    } finally {
 			        session.close();
@@ -74,12 +84,8 @@ public class registroDaoImpl implements registroDao{
 		Session session = sessionFactory.openSession();
 
 		    try {
-
 		    	Query<marca> query =  session.createQuery("FROM marca ",marca.class);
-		    	
-		    	
 		    	marcaList = query.getResultList();
-		    	
 		    } catch (Exception e) {
 		    	System.out.println("Error al obtener marca" + e);
 		    } finally {
@@ -89,7 +95,23 @@ public class registroDaoImpl implements registroDao{
 		return marcaList;
 	}
 
+	@Override
+	public String obtenerMarca(String id) {
+		marca marca1 = new marca();
 
+		Session session = sessionFactory.openSession();
+
+		    try {
+		    	Query<marca> query =  session.createQuery("FROM marca where idMarca = '" +id+ "'",marca.class);
+		    	marca1 = query.getSingleResult();
+		    } catch (Exception e) {
+		    	System.out.println("Error al obtener marca con id " + id +" - " + e);
+		    } finally {
+		        session.close();
+		    }			
+		
+		return marca1.getNombre();
+	}
 
 	@Override
 	public List<PRENDA> buscarPrenda(PRENDA prenda) {
@@ -101,8 +123,6 @@ public class registroDaoImpl implements registroDao{
 	
 		String sql =" FROM PRENDA  WHERE";
 		Session session = sessionFactory.openSession();
-
-		System.out.println(prenda.toString());
 		
 		
 		    try {
@@ -184,6 +204,7 @@ public class registroDaoImpl implements registroDao{
 
 	@Override
 	public String eliminarPrendaDao(Integer idPrenda) {
+
 		
 		 Session session = sessionFactory.openSession();
 		 Transaction transaction = null;

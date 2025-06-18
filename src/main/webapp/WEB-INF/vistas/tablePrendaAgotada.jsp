@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
 <script src="<%=request.getContextPath()%>/recursos/js/prenda.js"></script>
 <link rel="stylesheet" href="<%=request.getContextPath()%>/recursos/css/Table.css" />

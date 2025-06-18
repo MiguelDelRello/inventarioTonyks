@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
+<meta charset="UTF-8">
 <title>Punto de venta - TonykZ</title>
 <link rel="stylesheet" href="<%=request.getContextPath()%>/recursos/css/venta.css" />
 <link rel="stylesheet" href="<%=request.getContextPath()%>/recursos/css/Table.css" /> 
@@ -13,35 +13,30 @@
 	<div class="grid-container">
 	
 		<header class="headerVenta">
-		
+		            	<jsp:include page="header.jsp" />
 		</header>
 		<div class="widgetScanner">
-			<form action="scannPrenda" method="post" id="scannPrendaForm">
+			<form id="scannPrendaForm">
 				<label>Modelo:</label>
-			    <input type="text" id="modeloScann" name="modeloScann"   placeholder="Modelo" >&nbsp;&nbsp;&nbsp;
-	            <button id="btnRemover"  type="submit" onclick="" class="btn-cancelar">Eliminar articulos</button>
+			    <input type="text" id="modeloScann" name="modeloScann" placeholder="Modelo">&nbsp;&nbsp;&nbsp;
 			</form>
+	            <button id="btnRemover" onclick="eliminarPrenda()" class="btn-cancelar">Eliminar articulos</button>
+
 		</div>
-		
 		
 		<div class="widget">  
   			<div class="containerImgVenta">
-			  <img id="imgPrenda" src="/Imagenes/${prenda.imagen}" alt="Avatar" style="width: 150px; height: 150px;">
+			  <img id="imgPrenda" src="recursos/img/logo.png" alt="Avatar" style="width: 150px; height: 150px;">
 		    </div> 		
 		    <p id="pExistencia">Existencia : ${prenda.stock}</p><br>
 		    <p id="pDesc">Descripcion : ${prenda.descripcion}</p><br>
 		    
-		    
-		    <button id="btnPagar"  type="submit" onclick="" class="btn-pagar">Pagar</button><br>
-			<button id="btnCancelar" type="submit" onclick="" class="btn-cancelar">Cancelar</button><br>
-		    
-
+		    <button id="btnPagar" type="button" onclick="pagar()" class="btn-pagar">Pagar</button><br>
+			<button id="btnCancelar" type="button" onclick="cancelar()" class="btn-cancelar">Cancelar</button><br>
 		</div>  <!--Widget-1 -->
 		
-		
-		
 <aside class="sidebarVenta">
-	  <table id="tablaPrenda" >
+	  <table id="tablaVenta">
 	        <thead>
 	         <tr>
 	            <th> </th>	
@@ -57,34 +52,19 @@
             </tr>
          </thead>
          <tbody>
-              	<tr>
-              		<td><input type="checkbox"></td>
-	                <td>${prenda.idPrenda}</td>
-	                <td>${prenda.modelo}</td>
-	                <td>${prenda.marca}</td>
-	                <td>${prenda.tipo}</td>
-	                <td>${prenda.talla}</td>
-    	            <td>${prenda.costo}</td>
-    	            <td style="display: none;">${prenda.stock}</td>
-    	            <td style="display: none;">${prenda.descripcion}</td>
-    	            <td style="display: none;">${prenda.imagen}</td>    	            
-    	        </tr>  
+
 		  </tbody>
      </table>
-			
 </aside>
 			
-			
 		<div class="widgetTotal">
-		    <p id="pSubtotal">Sub Total :</p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		    <p id="pTotal">Total :</p>
-			
+		    <p id="pSubtotal">Sub Total :</p><p id="SubTotal">0</p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		    <p id="pTotal">Total : </p><p id="Total">0</p>
 		</div>		
 		
 		<footer class="footerVenta">
 		       	<jsp:include page="footer.jsp" />
 		</footer>
-		
 	</div>
 </body>
 </html>
