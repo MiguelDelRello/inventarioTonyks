@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.transaction.Transactional;
+import jakarta.transaction.Transactional;
 import mx.com.inventario.Entity.marca;
 import mx.com.inventario.Entity.PRENDA;
 import mx.com.inventario.Service.registroService;
@@ -24,8 +24,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-//import javax.annotation.PostConstruct;
-import javax.servlet.http.HttpServletRequest;
+
+import jakarta.servlet.http.HttpServletRequest;
 
 
 
@@ -70,7 +70,7 @@ public class registroController {
 		
 		prendaBusqueda.setModelo(request.getParameter("modeloBusqueda"));		
 		prendaBusqueda.setTalla(request.getParameter("tallaBusqueda"));		
-		prendaBusqueda.setMarca(request.getParameter("marcaBusqueda"));		
+		prendaBusqueda.setMarca(Integer.parseInt(request.getParameter("marcaBusqueda")));		
 		
 		
 		 buscarList = regService.buscarPrenda(prendaBusqueda);
@@ -117,7 +117,7 @@ public class registroController {
 		marcaList.stream()
 		      .filter(marca -> request.getParameter("marca").equals(marca.getNombre())  )
 		      .findFirst()
-		      .ifPresent(marca -> prenda.setMarca(marca.getIdMarca()) );
+		      .ifPresent(marca -> prenda.setMarca(Integer.parseInt(marca.getIdMarca())) );
 		
     	prenda.setCosto(Double.parseDouble(request.getParameter("costo")));
     	prenda.setDescripcion(request.getParameter("descripcion"));
@@ -126,7 +126,7 @@ public class registroController {
     	prenda.setStock(Integer.parseInt(request.getParameter("stock")));
     	prenda.setTalla(request.getParameter("talla"));
     	prenda.setTipo(request.getParameter("tipo"));	
-    	prenda.setVenta(Double.parseDouble(request.getParameter("venta")));
+    	prenda.setVenta(Integer.parseInt(request.getParameter("venta")));
     	
 	   modelo.addAttribute("mensaje", regService.agregarPrendaService(prenda));
 	   
@@ -190,7 +190,7 @@ public static List<PRENDA> sustituirMarca(List<PRENDA> prenda, List<marca> marca
 	 prenda.forEach(p ->  {
 		 marcaList.forEach(  m -> {
 	    		if(p.getMarca().equals(m.getIdMarca())) {   			
-	    			p.setMarca(m.getNombre());
+	    			p.setMarca(Integer.parseInt(m.getNombre()));
 	    		}
 		 });
 	 });
@@ -199,12 +199,7 @@ public static List<PRENDA> sustituirMarca(List<PRENDA> prenda, List<marca> marca
 	return prenda; 
 }	
 	
-/*	
-@PostConstruct
-public void init() {
-    System.out.println("RegistroController bean creado");
-}	
-*/
+
 
 
 }

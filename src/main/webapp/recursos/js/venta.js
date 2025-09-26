@@ -1,30 +1,3 @@
-document.addEventListener('interactive', function () {
-    var tabla = document.getElementById('tablaVenta');
-    var filas = tabla.getElementsByTagName('tr');
-
-    for (var i = 1; i < filas.length; i++) {
-        filas[i].addEventListener('click', function () {
-
-			
-			 var existencia   = document.getElementById('pExistencia');
-			 var descripcion   = document.getElementById('pDesc');			 
-			 var imagen   = document.getElementById('imgPrenda');
-			 
-            
-            
-   
-        	existencia.textContent  = this.cells[7].textContent;
-			descripcion.textContent = this.cells[8].textContent;
-			// Creamos un elemento de imagen y asignamos la URL como fuente
-			imagen.src = "/Imagenes/"   + this.cells[9].textContent;
-           console.log("---------------" + imagen.src);
-
-
-
-            
-        });
-    }
-});
 
 document.addEventListener('DOMContentLoaded', function() {
 	    document.getElementById('scannPrendaForm').addEventListener('submit', function(event) {
@@ -193,4 +166,21 @@ document.addEventListener('DOMContentLoaded', function() {
   }
   
   
-  
+document.addEventListener('DOMContentLoaded', function () {
+    var tabla = document.getElementById('tablaVenta');
+
+    tabla.addEventListener('click', function (event) {
+        var fila = event.target.closest('tr'); // Detecta la fila más cercana al elemento clickeado
+        if (!fila || fila.parentNode.tagName !== 'TBODY') return; // Ignora encabezados
+
+        var existencia = document.getElementById('pExistencia');
+        var descripcion = document.getElementById('pDesc');			 
+        var imagen = document.getElementById('imgPrenda');
+
+        existencia.textContent = 'Existencia : ' + fila.cells[7].textContent;
+        descripcion.textContent = 'Descripcion : ' + fila.cells[8].textContent;
+        imagen.src = '/Imagenes/' + fila.cells[9].textContent;
+
+        console.log('Click en fila, imagen: ' + imagen.src);
+    });
+});

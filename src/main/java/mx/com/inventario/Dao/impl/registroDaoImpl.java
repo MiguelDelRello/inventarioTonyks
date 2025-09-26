@@ -14,7 +14,7 @@ import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import javax.transaction.TransactionScoped;
+import jakarta.transaction.TransactionScoped;
 import mx.com.inventario.Dao.registroDao;
 import mx.com.inventario.Entity.marca;
 import mx.com.inventario.Entity.PRENDA;
@@ -135,7 +135,7 @@ public class registroDaoImpl implements registroDao{
 						    	
 						    	marcaList  =  queryMarca.getResultList();
 				     
-						    	prenda.setMarca(marcaList.get(0).getIdMarca());
+						    	prenda.setMarca(Integer.parseInt(marcaList.get(0).getIdMarca()) );
 						    	
 						    	sql = sql.concat(" marca = " + prenda.getMarca());
 						    	

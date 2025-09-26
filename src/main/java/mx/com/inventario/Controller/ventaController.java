@@ -2,8 +2,8 @@ package mx.com.inventario.Controller;
 
 import java.io.IOException;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import javax.transaction.Transactional;
+import jakarta.transaction.Transactional;
 import mx.com.inventario.Entity.PRENDA;
 import mx.com.inventario.Service.registroService;
 import mx.com.inventario.Service.ventaService;
@@ -33,7 +33,7 @@ public class ventaController {
 		System.out.println("id---- " + request.getParameter("modeloScann"));		
 	    String modeloBusqueda = request.getParameter("modeloScann");
 	    PRENDA scann = vtaService.scannService(modeloBusqueda);
-	    scann.setMarca(regService.obtenerMarca(scann.getMarca()));
+	   // scann.setMarca(regService.obtenerMarca(scann.getMarca()));
 	    
 	    
 	

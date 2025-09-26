@@ -5,6 +5,7 @@ mx\com\inventario\Entity\marca.class
 mx\com\inventario\Dao\registroDao.class
 mx\com\inventario\Dao\impl\ventaDaoImpl.class
 mx\com\inventario\Entity\DetalleVenta.class
+mx\com\inventario\InventarioApplication.class
 mx\com\inventario\Service\registroService.class
 mx\com\inventario\Dao\impl\registroDaoImpl.class
 mx\com\inventario\Service\ventaService.class

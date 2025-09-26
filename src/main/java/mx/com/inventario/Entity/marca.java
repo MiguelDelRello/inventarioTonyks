@@ -1,24 +1,24 @@
 package mx.com.inventario.Entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 
 
 
-@Entity(name = "marca")
+@Entity(name =  "marca")
 @Table(name = "marca")
 public class marca {
 
 
-	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name ="idMarca")
-	private String idMarca;
+	@Id
+	@Column(name ="id_marca")
+	private String id_marca;
 	@Column(name ="nombre")
 	private String nombre;
 	@Column(name ="descripcion")
@@ -26,10 +26,10 @@ public class marca {
 	
 	
 	public String getIdMarca() {
-		return idMarca;
+		return id_marca;
 	}
 	public void setIdMarca(String idMarca) {
-		this.idMarca = idMarca;
+		this.id_marca = idMarca;
 	}
 	public String getNombre() {
 		return nombre;
@@ -45,7 +45,7 @@ public class marca {
 	}
 	@Override
 	public String toString() {
-		return "Marca [idMarca=" + idMarca + ", nombre=" + nombre + ", descripcion=" + descripcion + "]";
+		return "Marca [idMarca=" + id_marca + ", nombre=" + nombre + ", descripcion=" + descripcion + "]";
 	}
 	
 	

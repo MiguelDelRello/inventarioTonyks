@@ -6,7 +6,7 @@ import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import javax.transaction.TransactionScoped;
+import jakarta.transaction.TransactionScoped;
 import mx.com.inventario.Dao.ventaDAO;
 import mx.com.inventario.Entity.PRENDA;
 

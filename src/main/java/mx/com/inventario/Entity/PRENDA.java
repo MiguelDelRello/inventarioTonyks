@@ -1,11 +1,11 @@
 package mx.com.inventario.Entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
@@ -15,11 +15,11 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 @Table  (name = "prenda")
 public class PRENDA {
 
-	public PRENDA(Integer idPrenda, String marca, String talla, double costo, double venta, String modelo, String tipo,
+	public PRENDA(Integer id_prenda, Integer id_marca, String talla, double costo, Integer venta, String modelo, String tipo,
 			Integer stock, String descripcion, String imagen) {
 		super();
-		this.idPrenda = idPrenda;
-		this.marca = marca;
+		this.id_prenda = id_prenda;
+		this.id_marca = id_marca;
 		this.talla = talla;
 		this.costo = costo;
 		this.venta = venta;
@@ -31,18 +31,19 @@ public class PRENDA {
 	}
 
 
-	@Id
+
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "idPrenda")
-	private Integer idPrenda; 
-	@Column(name = "idMarca")
-	private String marca; 
+	@Id
+	@Column(name = "id_prenda")
+	private Integer id_prenda; 
+	@Column(name = "id_marca")
+	private Integer id_marca; 
 	@Column(name = "talla")
 	private String talla;
 	@Column(name = "costo")
 	private double costo;
 	@Column(name = "venta")
-	private double venta;
+	private Integer venta;
 	@Column(name = "modelo")
 	private String modelo;
 	@Column(name = "tipo")
@@ -55,13 +56,12 @@ public class PRENDA {
     private String imagen;
 	
 	public PRENDA() {
-		// TODO Auto-generated constructor stub
 	}
 	public Integer getIdPrenda() {
-		return idPrenda;
+		return id_prenda;
 	}
 	public void setIdPrenda(Integer idPrenda) {
-		this.idPrenda = idPrenda;
+		this.id_prenda = idPrenda;
 	}
 	public String getImagen() {
 		return imagen;
@@ -69,11 +69,11 @@ public class PRENDA {
 	public void setImagen(String imagen) {
 		this.imagen = imagen;
 	}
-	public String getMarca() {
-		return marca;
+	public Integer getMarca() {
+		return id_marca;
 	}
-	public void setMarca(String string) {
-		this.marca = string;
+	public void setMarca(Integer string) {
+		this.id_marca = string;
 	}
 	public String getTalla() {
 		return talla;
@@ -81,10 +81,10 @@ public class PRENDA {
 	public void setTalla(String talla) {
 		this.talla = talla;
 	}
-	public double getVenta() {
+	public Integer getVenta() {
 		return venta;
 	}
-	public void setVenta(double venta) {
+	public void setVenta(Integer venta) {
 		this.venta = venta;
 	}
 	public double getCosto() {
@@ -121,7 +121,7 @@ public class PRENDA {
 	
 	@Override
 	public String toString() {
-		return "PRENDA [idPrenda=" + idPrenda + ", marca=" + marca + ", talla=" + talla + ", costo=" + costo
+		return "PRENDA [id_prenda=" + id_prenda + ", id_marca=" + id_marca + ", talla=" + talla + ", costo=" + costo
 				+ ", venta=" + venta + ", modelo=" + modelo + ", tipo=" + tipo + ", stock=" + stock + ", descripcion=" + descripcion +  ", imagen=" + imagen +  "]";
 	}
 	
