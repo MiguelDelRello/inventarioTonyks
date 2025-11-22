@@ -9,7 +9,7 @@ public interface registroDao {
 	public String agregarPrendaDao(PRENDA prenda);
 	public List<marca> obtenerMarcas();
 	public List<PRENDA> buscarPrenda(PRENDA prenda);
-	public List<PRENDA> obtenerPrendas(boolean exist);
+	public List<PRENDA> obtenerPrendas();
 	public String agregarMarcaDao(marca marca);
 	public String eliminarPrendaDao(Integer idPrenda);
 	String obtenerMarca(String id);

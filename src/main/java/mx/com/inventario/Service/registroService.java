@@ -13,7 +13,7 @@ public interface registroService {
 	public List<marca> obtenerMarcas();
 	public String obtenerMarca(String id);
 	public List<PRENDA> buscarPrenda(PRENDA prenda);
-	public List<PRENDA> obtenerPrendas(boolean exist);
+	public List<PRENDA> obtenerPrendas();
 	public String agregarMarcaService(marca marca);
 	public String eliminarPrenda(Integer parameter);
 	public String agregarPrendaService(PRENDA prenda);	

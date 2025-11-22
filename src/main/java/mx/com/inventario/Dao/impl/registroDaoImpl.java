@@ -14,6 +14,11 @@ import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import jakarta.persistence.TypedQuery;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Predicate;
+import jakarta.persistence.criteria.Root;
 import jakarta.transaction.TransactionScoped;
 import mx.com.inventario.Dao.registroDao;
 import mx.com.inventario.Entity.marca;
@@ -84,8 +89,13 @@ public class registroDaoImpl implements registroDao{
 		Session session = sessionFactory.openSession();
 
 		    try {
-		    	Query<marca> query =  session.createQuery("FROM marca ",marca.class);
-		    	marcaList = query.getResultList();
+		    	CriteriaBuilder cb = session.getCriteriaBuilder();
+		    	CriteriaQuery<marca> cq = cb.createQuery(marca.class);
+		    	Root<marca> rootEntry = cq.from(marca.class);
+		    	CriteriaQuery<marca> all = cq.select(rootEntry);
+		    	TypedQuery<marca> allQuery = session.createQuery(all);
+		    	marcaList = allQuery.getResultList();	
+		    	
 		    } catch (Exception e) {
 		    	System.out.println("Error al obtener marca" + e);
 		    } finally {
@@ -115,31 +125,61 @@ public class registroDaoImpl implements registroDao{
 
 	@Override
 	public List<PRENDA> buscarPrenda(PRENDA prenda) {
-		
+
+		Session session = sessionFactory.openSession();
 		
 		int contador = 0; 
 		List<PRENDA> prendaList = new ArrayList<>();
-		List<marca> marcaList = new ArrayList<>();
-	
+
+		   CriteriaBuilder cb = session.getCriteriaBuilder();
+		    CriteriaQuery<PRENDA> cq = cb.createQuery(PRENDA.class);
+		    Root<PRENDA> prendaquery = cq.from(PRENDA.class);
+		    
+		    // Filtros basados en tu objeto
+			if(prenda.getIdPrenda()!= null) {
+			    cq.where(cb.equal(prendaquery.get("id_prenda"), prenda.getIdPrenda() ) );	
+			}else {
+
+				
+						// entra si marca y talla tienen valor 
+						if(!prenda.getIdMarca().equals(0) && !prenda.getTalla().equals("select")) {
+							
+							 Predicate predicate = cb.equal(prendaquery.get("idmarca"), prenda.getIdMarca());		
+								       predicate = cb.and(predicate, cb.equal(prendaquery.get("talla"), prenda.getTalla()));
+							
+							 cq.where(predicate);	
+							
+						}else if (!prenda.getIdMarca().equals(0)) {
+							 cq.where( cb.equal(prendaquery.get("idmarca"), prenda.getIdMarca()));
+							  
+						}else {
+							 cq.where( cb.equal(prendaquery.get("talla"), prenda.getTalla()));
+						}							
+				
+				
+							
+				
+			}
+		    
+		    return session.createQuery(cq).getResultList();
+
+		
+		/*
+		
+		
+		
+		
 		String sql =" FROM PRENDA  WHERE";
-		Session session = sessionFactory.openSession();
 		
 		
 		    try {
 
 		    	if(prenda.getIdPrenda() == null) {
         	    			    	
-				    	if(!prenda.getMarca().equals("select")) {
-						    	Query<marca> queryMarca =  session.createQuery("FROM marca where nombre= :idMarca",marca.class);
-						    	queryMarca.setParameter("idMarca", prenda.getMarca());
+				    	if(!prenda.getIdMarca().equals("select")) {
 						    	
-						    	marcaList  =  queryMarca.getResultList();
-				     
-						    	prenda.setMarca(Integer.parseInt(marcaList.get(0).getIdMarca()) );
-						    	
-						    	sql = sql.concat(" marca = " + prenda.getMarca());
-						    	
-						    	
+						    	sql = sql.concat(" id_marca = " + prenda.getIdMarca());
+						    							    	
 						    	contador++;
 				    	}
 						    	
@@ -152,10 +192,10 @@ public class registroDaoImpl implements registroDao{
 				    	}
 				    	
 		    	}else {
-		    		sql = sql.concat( " idPrenda = " + prenda.getIdPrenda()); 
+		    		sql = sql.concat( " id_prenda = " + prenda.getIdPrenda()); 
 		    	}
 		    	
-		    		    	 	
+		    	System.out.println(sql);		
 		    	Query<PRENDA> query =  session.createQuery(sql,PRENDA.class);
 
 		    	
@@ -167,27 +207,29 @@ public class registroDaoImpl implements registroDao{
 		    } finally {
 		        session.close();
 		    }			
-		
-		return prendaList;
+	*/	
+
 	}
 
 	
 	
 	
 	@Override
-	public List<PRENDA> obtenerPrendas(boolean exist) {
+	public List<PRENDA> obtenerPrendas() {
 		List<PRENDA> prendaList = new ArrayList<>();
-
-		   
 		
-			String sql = exist ?"FROM PRENDA where stock != 0": "FROM PRENDA where stock = 0";
 
 			Session session = sessionFactory.openSession();
 
 		    try {
 
-		    	Query<PRENDA> query =  session.createQuery(sql,PRENDA.class);
-		    	prendaList = query.getResultList();
+		    	
+		    	CriteriaBuilder cb = session.getCriteriaBuilder();
+		    	CriteriaQuery<PRENDA> cq = cb.createQuery(PRENDA.class);
+		    	Root<PRENDA> rootEntry = cq.from(PRENDA.class);
+		    	CriteriaQuery<PRENDA> all = cq.select(rootEntry);
+		    	TypedQuery<PRENDA> allQuery = session.createQuery(all);
+		    	prendaList = allQuery.getResultList();
 		    	
 		    } catch (Exception e) {
 		    	System.out.println(e);

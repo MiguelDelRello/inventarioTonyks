@@ -22,7 +22,7 @@ public class registroServiceImpl implements registroService {
 	public List<marca> obtenerMarcas(){ return regDao.obtenerMarcas(); }
 
 	@Override
-	public List<PRENDA> obtenerPrendas(boolean exist) { return regDao.obtenerPrendas(exist);	}
+	public List<PRENDA> obtenerPrendas() { return regDao.obtenerPrendas();	}
 
 	@Override
 	public String agregarPrendaService(PRENDA prenda) {	return regDao.agregarPrendaDao(prenda);	}

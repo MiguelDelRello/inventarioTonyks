@@ -39,7 +39,6 @@ public class registroController {
 	private registroService regService;
 
 	List<PRENDA> prendaList = new ArrayList<>();
-	List<PRENDA> prendaListAgotada = new ArrayList<>();
 	List<marca> marcaList = new ArrayList<>(); 	
 	List<PRENDA> buscarList = new ArrayList<>();
 	
@@ -65,19 +64,19 @@ public class registroController {
 		if(!request.getParameter("idBusqueda").isEmpty()) { 
 			prendaBusqueda.setIdPrenda(Integer.parseInt(request.getParameter("idBusqueda")));
 		}
-		
-		
-		
-		prendaBusqueda.setModelo(request.getParameter("modeloBusqueda"));		
+				
 		prendaBusqueda.setTalla(request.getParameter("tallaBusqueda"));		
-		prendaBusqueda.setMarca(Integer.parseInt(request.getParameter("marcaBusqueda")));		
+		prendaBusqueda.setIdMarca(Integer.parseInt(request.getParameter("marcaBusqueda")));		
 		
-		
-		 buscarList = regService.buscarPrenda(prendaBusqueda);
-		 buscarList = sustituirMarca(buscarList,marcaList);
 		 
+		buscarList = regService.buscarPrenda(prendaBusqueda);
+		// buscarList = sustituirMarca(buscarList,marcaList);
 		 
-		return nuevaPrenda(modelo); 
+        modelo.addAttribute("prendaList", buscarList.stream().filter(p -> p.getStock() != 0  ).toList());		  
+		 modelo.addAttribute("prendaListAgotada", buscarList.stream().filter(p -> p.getStock().equals(0)  ).toList() );
+		 modelo.addAttribute("marcaList", marcaList);
+		 
+			return "prenda";
 	}
 	
 	
@@ -117,7 +116,7 @@ public class registroController {
 		marcaList.stream()
 		      .filter(marca -> request.getParameter("marca").equals(marca.getNombre())  )
 		      .findFirst()
-		      .ifPresent(marca -> prenda.setMarca(Integer.parseInt(marca.getIdMarca())) );
+		      .ifPresent(marca -> prenda.setIdMarca(marca.getIdMarca()) );
 		
     	prenda.setCosto(Double.parseDouble(request.getParameter("costo")));
     	prenda.setDescripcion(request.getParameter("descripcion"));
@@ -142,25 +141,14 @@ public class registroController {
 			
 		System.out.println("--------------------------Nueva prenda-------------------------------");
 		
-		if(buscarList.isEmpty() ) {
-			 //obtine las prendas activas		
-			 prendaList = regService.obtenerPrendas(true); 
-			 modelo.addAttribute("prendaList", prendaList);
-			
-		}
-		else {
-			modelo.addAttribute("prendaList", buscarList);
-		}
-		 //obtine las prendas activas		
-		 prendaListAgotada = regService.obtenerPrendas(false); 
 
-		 // Obtiene las marcas
-		 marcaList = regService.obtenerMarcas();		 
-		
-		 prendaList = sustituirMarca(prendaList,marcaList);
-		 prendaListAgotada = sustituirMarca(prendaListAgotada,marcaList);
+	     prendaList        = regService.obtenerPrendas();
+		 marcaList         = regService.obtenerMarcas();		 
+			
+		 marcaList.forEach(System.out::println);
 		 
-		 modelo.addAttribute("prendaListAgotada", prendaListAgotada);
+         modelo.addAttribute("prendaList", prendaList.stream().filter(p -> p.getStock() != 0  ).toList());		  
+		 modelo.addAttribute("prendaListAgotada", prendaList.stream().filter(p -> p.getStock().equals(0)  ).toList() );
 		 modelo.addAttribute("marcaList", marcaList);
 		 	 
 		return "prenda";
@@ -189,8 +177,8 @@ public static List<PRENDA> sustituirMarca(List<PRENDA> prenda, List<marca> marca
 	 
 	 prenda.forEach(p ->  {
 		 marcaList.forEach(  m -> {
-	    		if(p.getMarca().equals(m.getIdMarca())) {   			
-	    			p.setMarca(Integer.parseInt(m.getNombre()));
+	    		if(p.getIdMarca().equals(m.getIdMarca())) {   			
+	    			p.setIdMarca(Integer.parseInt(m.getNombre()));
 	    		}
 		 });
 	 });

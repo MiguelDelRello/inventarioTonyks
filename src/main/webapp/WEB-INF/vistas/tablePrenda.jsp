@@ -30,20 +30,19 @@
         </thead>
         <tbody>
            
-              	<c:forEach var="prenda" items="${prendaList}">
+              	<c:forEach var="prendaList" items="${prendaList}">
               	<tr>
-	                <td>${prenda.idPrenda}</td>
-	                <td>${prenda.marca}</td>
-	                <td>${prenda.tipo}</td>
-	                <td>${prenda.modelo}</td>
-	                <td>${prenda.talla}</td>
-	                <td>${prenda.stock}</td>
-	                
-    	            <td>${prenda.costo}</td>
-    	            <td>${prenda.venta}</td>
-    	            <td>${prenda.venta-prenda.costo}</td>
-    	            <td style="display: none;">${prenda.descripcion}</td>
-    	            <td style="display: none;">${prenda.imagen}</td>    	            
+	                <td>${prendaList.idPrenda}</td>
+	                <td>${prendaList.idMarca}</td>
+	                <td>${prendaList.tipo}</td>
+	                <td>${prendaList.modelo}</td>
+	                <td>${prendaList.talla}</td>
+	                <td>${prendaList.stock}</td>
+    	            <td>${prendaList.costo}</td>
+    	            <td>${prendaList.venta}</td>
+    	            <td>${prendaList.venta-prendaList.costo}</td>
+    	            <td style="display: none;">${prendaList.descripcion}</td>
+    	            <td style="display: none;">${prendaList.imagen}</td>    	            
     	            <tr>
                 </c:forEach>
             

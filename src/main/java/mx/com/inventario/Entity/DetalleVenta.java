@@ -19,18 +19,6 @@ import lombok.Data;
 @Table(name="DetalleVenta")
 */
 public class DetalleVenta {
-/*
+
 	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="id_detalle")
-	Integer id_detalle;
-	@Column(name="id_venta")
-	Integer id_venta;
-	@Column(name="idPrenda")
-	Integer idPrenda;
-	@Column(name="cantidad")
-	Integer cantidad;
-	
-	*/
 }

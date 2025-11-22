@@ -23,13 +23,11 @@
                 <form action="buscarPrenda" method="post">  
                     <label for="idBusqueda">ID:</label>
                     <input type="text" id="idBusqueda" name="idBusqueda" placeholder="ID">
-                    <label for="modeloBusqueda">Modelo:</label>
-                    <input type="text" id="modeloBusqueda" name="modeloBusqueda" placeholder="Modelo">
                     <label for="marcaBusqueda">Marca:</label>
                     <select id="marcaBusqueda" name="marcaBusqueda" required>
-                        <option value="select">Seleccionar</option>
+                        <option value="0">Seleccionar</option>
                         <c:forEach var="opcion" items="${marcaList}">
-                            <option value="${opcion.nombre}">${opcion.nombre}</option>
+                            <option value="${opcion.idMarca}">${opcion.nombre}</option>
                         </c:forEach>
                     </select>		    
                     <label for="tallaBusqueda">Talla:</label>
@@ -67,7 +65,7 @@
                 <div class="contentTab">           
                     <input type="radio" name="radio" id="radio1" checked>
                     <div class="tab1"> 
-           <!--          <jsp:include page="tablePrenda.jsp" />-->
+                  <jsp:include page="tablePrenda.jsp" />
                     </div>                  
                     <input type="radio" name="radio" id="radio2">
                     <div class="tab2">

@@ -33,7 +33,7 @@
               	<c:forEach var="prendaAgotada" items="${prendaListAgotada}">
               	<tr>
 	                <td>${prendaAgotada.idPrenda}</td>
-	                <td>${prendaAgotada.marca}</td>
+	                <td>${prendaAgotada.idMarca}</td>
 	                <td>${prendaAgotada.tipo}</td>
 	                <td>${prendaAgotada.modelo}</td>
 	                <td>${prendaAgotada.talla}</td>

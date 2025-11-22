@@ -15,11 +15,11 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 @Table  (name = "prenda")
 public class PRENDA {
 
-	public PRENDA(Integer id_prenda, Integer id_marca, String talla, double costo, Integer venta, String modelo, String tipo,
+	public PRENDA(Integer id_prenda, Integer idmarca, String talla, double costo, Integer venta, String modelo, String tipo,
 			Integer stock, String descripcion, String imagen) {
 		super();
 		this.id_prenda = id_prenda;
-		this.id_marca = id_marca;
+		this.idmarca = idmarca;
 		this.talla = talla;
 		this.costo = costo;
 		this.venta = venta;
@@ -32,12 +32,13 @@ public class PRENDA {
 
 
 
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_prenda")
 	private Integer id_prenda; 
 	@Column(name = "id_marca")
-	private Integer id_marca; 
+	private Integer idmarca; 
 	@Column(name = "talla")
 	private String talla;
 	@Column(name = "costo")
@@ -55,13 +56,15 @@ public class PRENDA {
     @Column(name = "imagen")
     private String imagen;
 	
+    
+    
 	public PRENDA() {
 	}
 	public Integer getIdPrenda() {
 		return id_prenda;
 	}
-	public void setIdPrenda(Integer idPrenda) {
-		this.id_prenda = idPrenda;
+	public void setIdPrenda(Integer id_prenda) {
+		this.id_prenda = id_prenda;
 	}
 	public String getImagen() {
 		return imagen;
@@ -69,11 +72,11 @@ public class PRENDA {
 	public void setImagen(String imagen) {
 		this.imagen = imagen;
 	}
-	public Integer getMarca() {
-		return id_marca;
+	public Integer getIdMarca() {
+		return idmarca;
 	}
-	public void setMarca(Integer string) {
-		this.id_marca = string;
+	public void setIdMarca(Integer id_marca) {
+		this.idmarca = id_marca;
 	}
 	public String getTalla() {
 		return talla;
@@ -121,7 +124,7 @@ public class PRENDA {
 	
 	@Override
 	public String toString() {
-		return "PRENDA [id_prenda=" + id_prenda + ", id_marca=" + id_marca + ", talla=" + talla + ", costo=" + costo
+		return "PRENDA [id_prenda=" + id_prenda + ", id_marca=" + idmarca + ", talla=" + talla + ", costo=" + costo
 				+ ", venta=" + venta + ", modelo=" + modelo + ", tipo=" + tipo + ", stock=" + stock + ", descripcion=" + descripcion +  ", imagen=" + imagen +  "]";
 	}
 	

@@ -112,3 +112,15 @@ if (valorLabel === "Error al registrar prenda" || valorLabel === "Error al regis
         error.style.display = "none";
         
 	}
+	
+	
+	
+	function buscarPrenda(){
+		
+		alert("Buscar prenda");
+		
+	}
+	
+	
+	
+	
